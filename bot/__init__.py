@@ -296,13 +296,6 @@ except:
 MAX_SPLIT_SIZE = 4194304000 if IS_PREMIUM_USER else 2097152000
 
 try:
-    DUMP_CHAT = getConfig('DUMP_CHAT')
-    if len(DUMP_CHAT) == 0:
-        raise KeyError
-    DUMP_CHAT = int(DUMP_CHAT)
-except:
-    DUMP_CHAT = None
-try:
     STATUS_LIMIT = getConfig('STATUS_LIMIT')
     if len(STATUS_LIMIT) == 0:
         raise KeyError
