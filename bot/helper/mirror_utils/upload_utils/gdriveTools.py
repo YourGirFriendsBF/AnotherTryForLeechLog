@@ -16,10 +16,11 @@ from tenacity import retry, wait_exponential, stop_after_attempt, retry_if_excep
 
 from bot.helper.telegram_helper.button_build import ButtonMaker
 from bot import parent_id, IS_TEAM_DRIVE, INDEX_URL, USE_SERVICE_ACCOUNTS, VIEW_LINK, \
-                DRIVES_NAMES, DRIVES_IDS, INDEX_URLS, EXTENSION_FILTER
+                DRIVES_NAMES, DRIVES_IDS, INDEX_URLS, EXTENSION_FILTER, SOURCE_LINK, TITLE_NAME
 from bot.helper.ext_utils.bot_utils import get_readable_file_size, setInterval
 from bot.helper.ext_utils.fs_utils import get_mime_type
 from bot.helper.ext_utils.html_helper import hmtl_content
+from bot.helper.ext_utils.telegraph_helper import telegraph
 
 LOGGER = getLogger(__name__)
 getLogger('googleapiclient.discovery').setLevel(ERROR)
@@ -394,8 +395,10 @@ class GoogleDriveHelper:
                     url = f'{INDEX_URL}/{url_path}'
                     buttons.buildbutton("⚡ Index Link", url)
                     if VIEW_LINK:
-                        urlv = f'{INDEX_URL}/{url_path}?a=view'
-                        buttons.buildbutton("🌐 View Link", urlv)
+                        urls = f'{INDEX_URL}/{url_path}?a=view'
+                        buttons.buildbutton("🌐 View Link", urls)
+                    if SOURCE_LINK is True:
+                        buttons.buildbutton(f"🔗 Source Link", link)
         except Exception as err:
             if isinstance(err, RetryError):
                 LOGGER.info(f"Total Attempts: {err.last_attempt.attempt_number}")
