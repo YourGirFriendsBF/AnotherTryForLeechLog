@@ -117,7 +117,57 @@ SUDO_USERS = set()
 AS_DOC_USERS = set()
 AS_MEDIA_USERS = set()
 EXTENSION_FILTER = set(['.aria2'])
+LEECH_LOG = set()
+MIRROR_LOGS = set()
+try:
+    aid = getConfig('MIRROR_LOGS')
+    aid = aid.split(' ')
+    for _id in aid:
+        MIRROR_LOGS.add(int(_id))
+except:
+    pass
+try:
+    aid = getConfig('LEECH_LOG')
+    aid = aid.split(' ')
+    for _id in aid:
+        LEECH_LOG.add(int(_id))
+except:
+    pass
+try:
+    BOT_PM = getConfig('BOT_PM')
+    BOT_PM = BOT_PM.lower() == 'true'
+except KeyError:
+    BOT_PM = False
+try:
+    SOURCE_LINK = getConfig('SOURCE_LINK')
+    SOURCE_LINK = SOURCE_LINK.lower() == 'true'
+except KeyError:
+    SOURCE_LINK = False
+try:
+    AUTHOR_NAME = getConfig('AUTHOR_NAME')
+    if len(AUTHOR_NAME) == 0:
+        AUTHOR_NAME = 'Arsh Sisodiya'
+except KeyError:
+    AUTHOR_NAME = 'Arsh Sisodiya'
 
+try:
+    AUTHOR_URL = getConfig('AUTHOR_URL')
+    if len(AUTHOR_URL) == 0:
+        AUTHOR_URL = 'https://t.me/heliosmirror'
+except KeyError:
+    AUTHOR_URL = 'https://t.me/heliosmirror'
+try:
+    TITLE_NAME = getConfig('TITLE_NAME')
+    if len(TITLE_NAME) == 0:
+        TITLE_NAME = 'Helios-Mirror-Search'
+except KeyError:
+    TITLE_NAME = 'Helios-Mirror-Search'
+try:
+    AUTO_DELETE_UPLOAD_MESSAGE_DURATION = int(getConfig('AUTO_DELETE_UPLOAD_MESSAGE_DURATION'))
+except KeyError:
+    AUTO_DELETE_UPLOAD_MESSAGE_DURATION = -1
+    LOGGER.warning("AUTO_DELETE_UPLOAD_MESSAGE_DURATION var missing!")
+    pass  
 try:
     BOT_TOKEN = getConfig('BOT_TOKEN')
     parent_id = getConfig('GDRIVE_FOLDER_ID')
